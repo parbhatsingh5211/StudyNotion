@@ -2,22 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaArrowRight } from 'react-icons/fa'
 import HighlightText from '../components/core/HomePage/HighlightText'
+
 import CTAButton from '../components/core/HomePage/Button'
 import Banner from '../assets/Images/banner.mp4'
 import CodeBlocks from '../components/core/HomePage/CodeBlocks'
 import TimeLineSection from '../components/core/HomePage/TimeLineSection'
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection'
 import InstructorSection from '../components/core/HomePage/InstructorSection'
-import ExploreMore from '../components/core/HomePage/ExploreMore'
 import Footer from '../components/common/Footer'
+import ExploreMore from '../components/core/HomePage/ExploreMore'
 
 const Home = () => {
   return (
     <div>
 
         {/* Section-1 */}
-        <div className='relative mx-auto flex flex-col w-10/12 max-w-maxContent items-center
+        <div className='relative mx-auto flex flex-col w-11/12 max-w-maxContent items-center
          text-white justify-between'>
+         
             <Link to={"/signup"}>
                 <div className='group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200
                 transition-all duration-200 hover:scale-95 w-fit'>
