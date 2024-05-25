@@ -28,6 +28,11 @@ const Navbar = () => {
   const { totalItems } = useSelector( (state) => state.cart );
   const location = useLocation();
 
+
+  function log (token) {
+    console.log("TOKEN: ", token)
+  }
+
   // const [subLinks, setSubLinks] = useState([]);
 
   // const fetchSublinks = async () => {
@@ -125,6 +130,7 @@ const Navbar = () => {
                 </Link>
               )
             }
+            {log(token)}
             {
               token === null && (
                 <Link to={"signup"}>

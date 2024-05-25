@@ -83,7 +83,7 @@ export function signup(
     }
 }
 
-export function login( email, password, navigate ) {
+export function login ( email, password, navigate ) {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
         dispatch(setLoading(true))
@@ -116,7 +116,7 @@ export function login( email, password, navigate ) {
     } 
 }
 
-export function getPasswordResetToken(email, setEmailSent) {
+export function getPasswordResetToken (email, setEmailSent) {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...")
         dispatch(setLoading(true))
@@ -142,7 +142,7 @@ export function getPasswordResetToken(email, setEmailSent) {
     }
 }
 
-export function resetPassword(password, confirmPassword, token, navigate) {
+export function resetPassword (password, confirmPassword, token, navigate) {
     return async (dispatch) => {
         const toastId =toast.loading("Loading...")
         dispatch(setLoading(true))
@@ -170,14 +170,16 @@ export function resetPassword(password, confirmPassword, token, navigate) {
     }
 }
 
-export function logout(navigate) {
+export function logout (navigate) {
     return (dispatch) => {
         dispatch(setToken(null))
         dispatch(setUser(null))
         dispatch(resetCart())
+        // localStorage.clear();
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         toast.success("Logged Out")
         navigate("/")
+        
     }
 };

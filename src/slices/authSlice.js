@@ -18,8 +18,9 @@ const authSlice = createSlice({
         setLoading(state, value) {
             state.loading = value.payload;
         },
-        setToken(state,value){
-            state.value = value.payload;
+        setToken(state, value){
+            state.token = value.payload;
+            console.log("STATE_TOKEN:", state.token)
         },
     },
 });
