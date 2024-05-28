@@ -8,6 +8,7 @@
     "concurrently": "^8.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.5",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
     "react-otp-input": "^3.1.1",
@@ -20,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git"
+    "url": "git+https://github.com/parbhatsingh5211/StudyNotion.git"
   },
-  "author": "Pranay Gupta",
+  "author": "Parbhat Sinngh",
   "bugs": {
-    "url": "https://github.com/thepranaygupta/react-tailwind-css-starter-pack/issues"
+    "url": "https://github.com/parbhatsingh5211/StudyNotion/issues"
   },
   "scripts": {
     "start": "react-scripts start",
