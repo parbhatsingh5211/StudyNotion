@@ -11,7 +11,7 @@ const Stats = () => {
   return (
     <section>
         <div >
-            <div className='flex justify-around text-center lg:text-left w-full lg:px-32 lg:py-24 md:py-12 py-6 items-center bg-richblack-700'>
+            <div className='flex justify-around text-center lg:text-left w-full lg:px-32 lg:py-24 md:py-12 py-6 items-center bg-richblack-800 border-b-2 border-richblack-700'>
                 {
                     stats.map( (data, index) => (
                         <div key={index}
