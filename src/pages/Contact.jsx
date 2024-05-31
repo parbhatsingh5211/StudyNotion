@@ -25,7 +25,7 @@ const Contact = () => {
             </div>
             <div className='lg:w-[55%] flex flex-col gap-8 border-richblack-600 border-[1px] p-7 md:p-12 rounded-xl'>
                 <div className='text-2xl md:text-4xl font-semibold text-richblack-5 flex flex-col gap-3'>
-                    Got a Idea? We’ve got the skills. Let’s team up
+                    {`Got a Idea? We've got the skills. Let's team up`}
                     <p className='text-base font-medium'>Tall us more about yourself and what you’re got in mind.</p>
                 </div>
                 <ContactUsForm/>
