@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import OpenRoute from './components/core/Auth/OpenRoute'
 import Home from "./pages/Home";
 import Navbar from './components/common/Navbar'
@@ -14,10 +14,21 @@ import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Error from './pages/Error'
+import  Settings  from "./components/core/Dashboard/Settings";
+import { useDispatch, useSelector } from "react-redux";
+import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
+import Cart from "./components/core/Dashboard/Cart";
+import { ACCOUNT_TYPE } from "./utils/constants";
 
 function App() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector( (state) => state.profile);
+
   return (
-    <div className="w-screen min-h-screen bg-richblack-900 felx flex-col font-inter">
+    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -86,7 +97,15 @@ function App() {
           }
         >
           <Route path="dashboard/my-profile" element={<MyProfile /> } />
-          {/* <Route path="dashboard/settings" element={<Setting /> } /> */}
+          <Route path="dashboard/Settings" element={<Settings /> } />
+          {
+            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+              <>
+                <Route path="dashboard/enrolled-courses" element={<EnrolledCourses /> } />
+                <Route path="dashboard/wishlist" element={<Cart /> } />
+              </>
+            )
+          }
         </Route>
 
         <Route path="*" element={<Error /> } />

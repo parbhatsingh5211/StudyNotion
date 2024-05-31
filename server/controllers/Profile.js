@@ -142,7 +142,7 @@ exports.getEnrolledCourses = async (req, res) => {
         const userDetails = await User.findOne({
           _id: userId,
         })
-            .populate("course")
+            .populate("courses")
             .exec();
         if(!userDetails) {
             return res.status(400).json({
