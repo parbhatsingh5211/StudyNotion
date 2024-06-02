@@ -6,7 +6,7 @@ require('dotenv').config();
 
 exports.updateProfile = async (req, res) => {
     try{
-        const {dateOfBirth="", about="", gender="", contactNumber="", profession=""} = req.body;
+        const {dateOfBirth="", about="", gender="", contactNumber="", profession="", firstName, lastName} = req.body;
         const id = req.user.id;
 
         // Find the profile by id
@@ -23,6 +23,10 @@ exports.updateProfile = async (req, res) => {
         // Save the updated profile
 		await profile.save();
         // console.log(profile)
+
+        userDetails.firstName = firstName;
+        userDetails.lastName = lastName;
+        await userDetails.save();
 
         const updatedUserDetails = await User.findById(id)
             .populate("additionalDetails")

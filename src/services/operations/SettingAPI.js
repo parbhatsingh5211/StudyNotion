@@ -39,7 +39,7 @@ export function updateDisplayPicture(token, formData) {
 
         } catch(error) {
             console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error)
-            toast.error("Could Not Update Display Picture")
+            toast.error(error.response.data.message)
         }
         toast.dismiss(toastId)
     }
@@ -67,7 +67,7 @@ export function updateProfile(token, formdata) {
             )
         } catch(error) {
             console.log("UPDATE_PROFILE_API API ERROR............", error)
-            toast.error("Could Not Update Profile")
+            toast.error(error.response.data.message)
         }
         toast.dismiss(toastId)
     }
@@ -112,7 +112,7 @@ export function deleteProfile(token, navigate) {
         dispatch(logout(navigate))
       } catch (error) {
         console.log("DELETE_PROFILE_API API ERROR............", error)
-        toast.error("Could Not Delete Profile")
+        toast.error(error.response.data.message)
       }
       toast.dismiss(toastId)
     }

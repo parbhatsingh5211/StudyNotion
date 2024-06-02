@@ -79,34 +79,21 @@ export default function EditProfile() {
               )}
             </div>
           </div>
-
+          
           <div className="flex flex-col gap-5 lg:flex-row">
             <div className="flex flex-col gap-2 lg:w-[48%]">
-              <label htmlFor="dateOfBirth" className="lable-style">
-                Date of Birth
+              <label htmlFor="profession" className="lable-style">
+                Profession
               </label>
               <input
-                type="date"
-                name="dateOfBirth"
-                id="dateOfBirth"
+                type="text"
+                name="profession"
+                id="profession"
+                placeholder="Enter first name"
                 className="form-style"
-                {...register("dateOfBirth", {
-                  required: {
-                    value: true,
-                    message: "Please enter your Date of Birth.",
-                  },
-                  max: {
-                    value: new Date().toISOString().split("T")[0],
-                    message: "Date of Birth cannot be in the future.",
-                  },
-                })}
-                defaultValue={user?.additionalDetails?.dateOfBirth}
+                {...register("profession",)}
+                defaultValue={user?.additionalDetails?.profession}
               />
-              {errors.dateOfBirth && (
-                <span className="-mt-1 text-[12px] text-yellow-100">
-                  {errors.dateOfBirth.message}
-                </span>
-              )}
             </div>
 
             <div className="flex flex-col gap-2 lg:w-[48%]">
@@ -164,7 +151,37 @@ export default function EditProfile() {
                 </span>
               )}
             </div>
+
             <div className="flex flex-col gap-2 lg:w-[48%]">
+              <label htmlFor="dateOfBirth" className="lable-style">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dateOfBirth"
+                id="dateOfBirth"
+                className="form-style"
+                {...register("dateOfBirth", {
+                  required: {
+                    value: true,
+                    message: "Please enter your Date of Birth.",
+                  },
+                  max: {
+                    value: new Date().toISOString().split("T")[0],
+                    message: "Date of Birth cannot be in the future.",
+                  },
+                })}
+                defaultValue={user?.additionalDetails?.dateOfBirth}
+              />
+              {errors.dateOfBirth && (
+                <span className="-mt-1 text-[12px] text-yellow-100">
+                  {errors.dateOfBirth.message}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 lg:w-[calc(96%+1.25rem)]">
               <label htmlFor="about" className="lable-style">
                 About
               </label>
@@ -183,7 +200,6 @@ export default function EditProfile() {
                 </span>
               )}
             </div>
-          </div>
         </div>
 
         <div className="flex justify-end gap-2">
