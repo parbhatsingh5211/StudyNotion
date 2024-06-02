@@ -3,6 +3,7 @@ import { apiConnector } from "../apiconnector"
 import { settingsEndpoints } from "../apis"
 import { setUser } from "../../slices/profileSlice"
 import { logout } from "./authAPI"
+import { setToken } from "../../slices/authSlice"
 
 const {
     UPDATE_DISPLAY_PICTURE_API,
@@ -62,7 +63,7 @@ export function updateProfile(token, formdata) {
                 : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.updatedUserDetails.firstName} ${response.data.updatedUserDetails.lastName}`
 
             dispatch(
-                setUser({ ...response.data.updatedUserDetails, image: userImage })
+                setUser({ ...response.data.updatedUserDetails, image: userImage }),
             )
         } catch(error) {
             console.log("UPDATE_PROFILE_API API ERROR............", error)
@@ -99,7 +100,7 @@ export function deleteProfile(token, navigate) {
 
       try {
         const response = await apiConnector("DELETE", DELETE_PROFILE_API, null, {
-          Authorization: `Bearer ${token}`,
+          Authorisation: `Bearer ${token}`,
         })
         console.log("DELETE_PROFILE_API API RESPONSE............", response)
   

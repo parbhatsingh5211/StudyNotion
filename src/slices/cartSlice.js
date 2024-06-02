@@ -66,9 +66,9 @@ const cartSlice = createSlice({
             state.total = 0
             state.totalItems = 0
             // update localStorage
-            localStorage.setItem("cart")
-            localStorage.setItem("total")
-            localStorage.setItem("totalItems")
+            localStorage.removeItem("cart")
+            localStorage.removeItem("total")
+            localStorage.removeItem("totalItems")
         },
     },
 });

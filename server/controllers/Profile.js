@@ -2,12 +2,11 @@ const Profile = require('../models/Profile');
 const User = require('../models/User');
 const Course = require('../models/Course');
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
-const cron = require('cron')
 require('dotenv').config();
 
 exports.updateProfile = async (req, res) => {
     try{
-        const {dateOfBirth="", about="", gender="", contactNumebr, profession=""} = req.body;
+        const {dateOfBirth="", about="", gender="", contactNumber="", profession=""} = req.body;
         const id = req.user.id;
 
         // Find the profile by id
@@ -19,15 +18,19 @@ exports.updateProfile = async (req, res) => {
         profile.about = about;
         profile.gender = gender;
         profile.profession = profession;
-        profile.contactNumber = contactNumebr;
-        
+        profile.contactNumber = contactNumber;
+
         // Save the updated profile
 		await profile.save();
         // console.log(profile)
-        return res.status(500).json({
+
+        const updatedUserDetails = await User.findById(id)
+            .populate("additionalDetails")
+        return res.status(200).json({
             success: true,
             message: 'Profile updated Successfully',
-            profile
+            profile,
+            updatedUserDetails,
         });
 
     }catch(error){

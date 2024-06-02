@@ -18,14 +18,16 @@ const Sidebar = () => {
 
     if( profileLoading || authLoading) {
         return (
-            <div className='spinner mt-10'></div>
+            <div className="grid h-[calc(100vh-3.5rem)] min-w-[220px] items-center border-r-[1px] border-r-richblack-700 bg-richblack-800">
+                <div className="spinner"></div>
+            </div>
         )
     }
     
   return (
     <div>
-        <div className='flex flex-col min-w-[222px] border-r-[1px] border-richblack-700 bg-richblack-800 py-10'>
-            <div className='flex flex-col'>
+        <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
+            <div className="flex flex-col">
                 {
                     sidebarLinks.map( (link) => {
                         if(link.type && user?.accountType !== link.type) return null;
@@ -35,10 +37,10 @@ const Sidebar = () => {
                     })
                 }
             </div>
-            <div className='mx-auto mt-6 h-[1px] w-10/12 bg-richblack-600'></div>
+            <div className='mx-auto mt-6 h-[1px] w-10/12 bg-richblack-700'></div>
             <div className='flex flex-col'>
                 <SidebarLink 
-                    link = {{name:"Settings" , path: "dasboard/settings"}}
+                    link = {{name:"Settings" , path: "dashboard/settings"}}
                     iconName = { "VscSettingsGear" }
                 />
 
@@ -51,9 +53,9 @@ const Sidebar = () => {
                         btn1Handler: () => dispatch(logout(navigate)),
                         btn2Handler: () => setConfirmationModal(null),
                     })}
-                    className='text-sm font-medium text-richblack-300'
+                    className='px-8 py-2 text-sm font-medium text-richblack-300'
                 >
-                <div className='flex items-center gap-x-2 px-8 py-2'>
+                <div className='flex items-center gap-x-2'>
                     <VscSignOut className='text-lg'/>
                     <span>Logout</span>
                 </div>

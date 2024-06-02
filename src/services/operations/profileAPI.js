@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { setLoading, setUser } from '../../slices/profileSlice'
 import { apiConnector } from "../apiconnector";
 import { profileEndpoints } from "../apis";
+import { logout } from "./authAPI"
 
 const {
     GET_USER_ENROLLED_COURSES_API,

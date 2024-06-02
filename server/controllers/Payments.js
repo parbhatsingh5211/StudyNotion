@@ -69,6 +69,17 @@ exports.capturePayment = async (req, res) => {
             const paymentResponse = await instance.orders.create(options);
             console.log(paymentResponse);
 
+            // return response
+            return res.status(200).json({  
+                success:true,
+                courseName: course.courseName,
+                courseDescription: course.courseDescription,
+                thumbnail: course.thumbnail,
+                orderId: paymentResponse.id,
+                currency: paymentResponse.currency,
+                amount: paymentResponse.amount
+            })
+
         }catch(error){
             console.log(error);
             return res.json({
@@ -76,18 +87,6 @@ exports.capturePayment = async (req, res) => {
                 message: 'Could not initiate order.'
             })
         }
-
-        // return response
-        return res.status(200).json({  
-            success:true,
-            courseName: course.courseName,
-            courseDescription: course.courseDescription,
-            thumbnail: course.thumbnail,
-            orderId: paymentResponse.id,
-            currency: paymentResponse.currency,
-            amount: paymentResponse.amount
-        })
-
     }catch(error){
         console.error(error);
         return res.status(500).json({
@@ -130,7 +129,7 @@ exports.verifySignature = async (req, res) => {
             console.log(enrolledCourse);
 
             // find the student and add the course to their kist enrolled courses
-            const enrolledStudent = await User.findByIdAndUpdate(
+            const enrolledStudent = await User.findOneAndUpdate(
                 {_id: userId},
                 {$push: {courses: courseId}},
                 {new: true}
