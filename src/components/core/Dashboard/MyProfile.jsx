@@ -56,7 +56,7 @@ const MyProfile = () => {
                     user?.additionalDetails?.about
                     ? "text-richblack-5"
                     : "text-richblack-400"
-                } text-sm font-medium`}
+                } text-sm font-medium text-justify lg:w-[calc(96%)]`}
             >
                 {user?.additionalDetails?.about ?? "Write Something about Yourself"}
             </p>
