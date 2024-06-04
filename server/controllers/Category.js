@@ -34,6 +34,12 @@ exports.createCategory = async (req,res) => {
 exports.showAllCategories = async (req, res) => {
     try{
         const allcategory = await Category.find({}, {name: true, description: true});
+        // if(!allcategory){
+        //     res.status(200).json({
+        //         success: true,
+        //         message: 'Admin Not create a category'
+        //     });
+        // }
         res.status(200).json({
             success: true,
             data: allcategory
