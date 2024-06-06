@@ -33,7 +33,7 @@ exports.createCategory = async (req,res) => {
 // gatAllCategory handler function
 exports.showAllCategories = async (req, res) => {
     try{
-        const allcategory = await Category.find({}, {name: true, description: true});
+        const allcategory = await Category.find({});
         // if(!allcategory){
         //     res.status(200).json({
         //         success: true,
@@ -60,7 +60,7 @@ exports.categoryPageDetails = async (req, res) => {
         const selectedCategory = await Category.findById(categoryId)
             .populate("courses")
             .exec();
-        console.log(selectedCategory);
+        // console.log(selectedCategory);
         // Handle the case when the category is not found
         if (!selectedCategory) {
             console.log("Category not found.");
