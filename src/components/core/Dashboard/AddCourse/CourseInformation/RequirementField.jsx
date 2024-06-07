@@ -8,7 +8,7 @@ const RequirementField = ({name, label, register, errors, setValue, getValues}) 
     useEffect( () => {
         register(name, {
             required: true,
-            validate: (value) => value.length > 0
+            // validate: (value) => value.length > 0
         })
     }, [])
 
@@ -19,7 +19,7 @@ const RequirementField = ({name, label, register, errors, setValue, getValues}) 
     const handleAddRequirement = () => {
         if(requirement){
             setRequirementList([...requirementList, requirement]);
-            setRequirement("");
+            // setRequirement("");
         }
     }
 

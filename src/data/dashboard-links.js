@@ -55,4 +55,32 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.STUDENT,
     icon: "VscMortarBoard",
   },
+  {
+    id: 8,
+    name: "Add Category",
+    path: "/dashboard/add-category",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscMortarBoard",
+  },
+  {
+    id: 9,
+    name: "Courses",
+    path: "/dashboard/all-courses",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscMortarBoard",
+  },
+  {
+    id: 8,
+    name: "Instructors",
+    path: "/dashboard/all-instructors",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscMortarBoard",
+  },
+  {
+    id: 10,
+    name: "Students",
+    path: "/dashboard/all-students",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscMortarBoard",
+  },
 ];

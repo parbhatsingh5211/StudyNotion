@@ -70,7 +70,7 @@ const Navbar = () => {
                            -translate-x-[50%] translate-y-[15%]
                            flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900
                            opacity-0 transition-all duration-200 group-hover:visible
-                           group-hover:opacity-100 lg:w-[200px] sm:w-[150px] z-50'>
+                           group-hover:opacity-100 lg:w-[200px] sm:w-[150px] z-50 shadow-md shadow-blue-25 shadow-(0px 3px 5px -1px)'>
 
                             <div className='absolute left-[50%] top-0 h-6 w-6 rotate-45 rounded
                               bg-richblack-5 -translate-y-[45%] translate-x-[80%]'>
@@ -78,7 +78,11 @@ const Navbar = () => {
                             {
                               subLinks.length ? (
                                 subLinks.map( (subLink, index) => (
-                                  <Link to={subLink.name} key={index}>
+                                  <Link to={subLink.name} key={index}
+                                    className='ml-2 my-auto hover:border-l-2 hove:border-[#3ca0e7] pb-1
+                                    block shadow-md shadow-(0px 3px 5px -1px) transition-all duration-200 hover:pl-4
+                                    hover:text-blue-300 font-medium'
+                                  >
                                     {subLink.name}
                                   </Link>
                                 ))   
