@@ -89,7 +89,7 @@ export const addCourseDetails = async (data, token) => {
     try {
         const response = await apiConnector("POST", CREATE_COURSE_API, data, {
             "content-type": "multipart/form-data",
-            Authorisation: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         })
         console.log("CREATE_COURSE_API RESPONSE............", response)
         
@@ -114,7 +114,7 @@ export const editCourseDetails = async (data, token) => {
     try {
         const response = await apiConnector("PUT", EDIT_COURSE_API, data, {
             "content-type": "multipart/form-data",
-            Authorisation: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log("EDIT COURSE API RESPONSE............", response)
         
@@ -138,7 +138,7 @@ export const createSection = async (data, token) => {
 
     try {
         const response = await apiConnector("POST", CREATE_SECTION_API, data, {
-            "Authorisation": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
 
         console.log("CREATE SECTION API RESPONSE............", response)
@@ -162,7 +162,7 @@ export const createSubSection = async (data, token) => {
 
     try {
         const response = await apiConnector("POST", CREATE_SUBSECTION_API, data, {
-            Authorisation: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log("CREATE SUB-SECTION API RESPONSE............", response)
         
@@ -173,7 +173,7 @@ export const createSubSection = async (data, token) => {
         result = response?.data?.data
     } catch (error) {
         console.log("CREATE SUB-SECTION API ERROR............", error)
-        toast.error(error.message)
+        toast.error(error.response.data.message)
     }
     toast.dismiss(toastId);
     return result;
@@ -186,7 +186,7 @@ export const updateSection = async (data, token) => {
 
     try {
         const response = await apiConnector("PUT", UPDATE_SECTION_API, data, {
-            Authorisation: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log("UPDATE SECTION API RESPONSE............", response)
         
@@ -210,7 +210,7 @@ export const updateSubSection = async (data, token) => {
 
     try {
         const response = await apiConnector("PUT", UPDATE_SUBSECTION_API, data, {
-            Authorisation: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log("UPDATE SUB-SECTION API RESPONSE............", response)
         
@@ -234,7 +234,7 @@ export const deleteSection = async (data, token) => {
 
     try {
         const response = await apiConnector("DELETE", DELETE_SECTION_API, data, {
-            Authorisation: `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         })
         console.log("DELETE SECTION API RESPONSE............", response)
     
@@ -258,7 +258,7 @@ export const deleteSubSection = async (data, token) => {
     
     try {
       const response = await apiConnector("DELETE", DELETE_SUBSECTION_API, data, {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       })
       console.log("DELETE SUB-SECTION API RESPONSE............", response)
       
@@ -285,7 +285,7 @@ export const fetchInstructorCourses = async (token) => {
             "GET",
             GET_ALL_INSTRUCTOR_COURSES_API,
             null,
-            { Authorisation: `Bearer ${token}` }
+            { Authorization: `Bearer ${token}` }
         )
         console.log("INSTRUCTOR COURSES API RESPONSE............", response)
         
@@ -307,7 +307,7 @@ export const deleteCourse = async (data, token) => {
     
     try {
       const response = await apiConnector("DELETE", DELETE_COURSE_API, data, {
-        Authorisation: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       })
       console.log("DELETE COURSE API RESPONSE............", response)
       
@@ -332,7 +332,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
             "GET",
             GET_FULL_COURSE_DETAILS_AUTHENTICATED,
             { courseId },
-            { Authorisation: `Bearer ${token}` }
+            { Authorization: `Bearer ${token}` }
         )
         console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
 
@@ -358,7 +358,7 @@ export const markLectureAsComplete = async (data, token) => {
 
     try {
         const response = await apiConnector("POST", LECTURE_COMPLETION_API, data, {
-          Authorisation: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         })
         console.log(
           "MARK_LECTURE_AS_COMPLETE_API RESPONSE............",

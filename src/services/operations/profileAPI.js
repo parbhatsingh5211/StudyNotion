@@ -16,7 +16,7 @@ export function getUserDetails(token, navigate) {
         
         try{
             const response =  await apiConnector("GET", GET_USER_DETAILS_API, null, {
-                Authorisation: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             })
 
             console.log("GET_USER_DETAILS API RESPONSE............", response)
@@ -50,7 +50,7 @@ export async function getUserEnrolledCourses(token) {
             GET_USER_ENROLLED_COURSES_API,
             null,
             {
-                Authorisation: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             }
         )
         // console.log(

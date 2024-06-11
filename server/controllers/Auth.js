@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 const mailSender = require('../utils/mailSender')
 const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 const Profile = require("../models/Profile");
-
 require('dotenv').config();
-
 
 // SignUp Controller for Registering Users
 exports.signUp = async (req, res) => {
@@ -102,7 +100,7 @@ exports.signUp = async (req, res) => {
             additionalDetails: profileDetails._id,
             image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
         })
-        console.log("USER: ", user)
+        // console.log("USER: ", user)
         return res.status(200).json({
             success:true,
             message: 'User registered Sucessfully',
@@ -224,7 +222,6 @@ exports.sendOTP = async (req, res) => {
                 lowerCaseAlphabets: false,
                 specialChars: false
             });
-            result = await OTP.findOne({otp: otp})
         }
         const otpPayload = {email, otp};
         const otpBody = await OTP.create(otpPayload);
@@ -235,8 +232,6 @@ exports.sendOTP = async (req, res) => {
             message: `OTP Sent Successfully`,
             otp
         });
-
-
     }catch(error){
         console.log(error.message);
         return res.status(500).json({

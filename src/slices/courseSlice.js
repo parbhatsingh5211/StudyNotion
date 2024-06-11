@@ -10,7 +10,7 @@ const initialState = {
 const courseSlice = createSlice({
   name: "course",
   initialState,
-  Reducers: {
+  reducers: {
     setStep: (state, action) => {
       state.step = action.payload
     },

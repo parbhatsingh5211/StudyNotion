@@ -11,7 +11,7 @@ exports.capturePayment = async (req, res) => {
     try{
         // get courseId and UserId
         const {course_id} = req.body;
-        const userId = req.body.id;
+        const userId = req.user.id;
 
         // validation
         // validate courseId
@@ -96,12 +96,10 @@ exports.capturePayment = async (req, res) => {
     }
 };
 
-
-
 // verify Signature of Razorpay and Server 
 exports.verifySignature = async (req, res) => {
     const webhookSecret = "12345678";
-    const signature = req.header['x-razorpay-signature'];
+    const signature = req.headers['x-razorpay-signature'];
 
     const shasum = crypto.createHmac("sha256", webhookSecret);
     shasum.update(JSON.stringify(req.body));

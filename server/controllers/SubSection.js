@@ -8,12 +8,12 @@ require('dotenv').config();
 exports.createSubSection = async (req, res) => {
     try{
         // Extract necessary information from the request body
-        const { sectionId, title, timeDuration, description } = req.body;
-		const video = req.files.videoFile;
+        const { sectionId, title, description } = req.body;
+		const video = req.files.video;
 
         // Check if all necessary fields are provided
-        if(!sectionId || !title || !timeDuration || !description || !video) {
-            return res.status(40).json({
+        if(!sectionId || !title || !description || !video) {
+            return res.status(400).json({
                 success: false,
                 message: 'All Fields are Required',
                 
@@ -29,7 +29,7 @@ exports.createSubSection = async (req, res) => {
         // Create a new sub-section with the necessary information
         const subSectionDetails = await SubSection.create({
             title: title,
-            timeDuration: timeDuration,
+            timeDuration: uploadDetails.duration,
             description: description,
             videoUrl: uploadDetails.secure_url,
         })
@@ -38,7 +38,7 @@ exports.createSubSection = async (req, res) => {
         // Update the corresponding section with the newly created sub-section
         const updatedSection = await Section.findByIdAndUpdate(
             { _id: sectionId },
-            { $push: { subSection: subSectionDetails } },
+            { $push: { subSection: subSectionDetails._id } },
             { new: true }
         ).populate('subSection').exec();
 
@@ -62,31 +62,53 @@ exports.createSubSection = async (req, res) => {
 exports.updateSubSection = async (req, res) => {
     try{
         // fetch data
-        const {subSectionName, subSectionId} = req.body; 
+        const { sectionId, subSectionId, title, description } = req.body
+        const subSection = await SubSection.findById(subSectionId) 
         
         // data validation
-        if(!subSectionName || !subSectionId){
+        if(!subSection){
             return res.status(400).json({
                 success: false,
-                message: 'Missing Properties.'
+                message: 'SubSection not found.'
             })
         }
 
-        // update data 
-        const subSection = SubSection.findByIdAndUpdate(subSectionId, {subSectionName}, {new: true});
+        if (title !== undefined) {
+            subSection.title = title
+        }
+    
+        if (description !== undefined) {
+            subSection.description = description
+        }
+
+        if (description !== undefined) {
+            subSection.description = description
+        }
+        if (req.files && req.files.video !== undefined) {
+            const video = req.files.video
+            const uploadDetails = await uploadImageToCloudinary(
+              video,
+              process.env.FOLDER_NAME
+            )
+            subSection.videoUrl = uploadDetails.secure_url
+            subSection.timeDuration = `${uploadDetails.duration}`
+        }
+      
+        await subSection.save()
+        const updatedSection = await Section.findById(sectionId).populate("subSection")
 
         // return res
         return res.status(200).json({
             success: true,
             message: 'SubSection updated succcesssfully.',
-            subSection
+            data:updatedSection,
         });
 
     }catch(error){
+        console.error(error)
         return res.status(500).json({
             success: false,
-            message: 'Unable to update subSection, please try again.',
-            error: error.message
+            message: 'An error occurred while updating the subSection',
         });
     }
 };
@@ -94,25 +116,36 @@ exports.updateSubSection = async (req, res) => {
 
 exports.deleteSubSection = async (req, res) => {
     try{
-        // fetch subsection-ID
-        const {subSectionId} = req.params;
-
-        // delete by findByIdAndDelete function
-        await SubSection.findByIdAndDelete(subSectionId);
-
-        // TODO [Testing] : do we need to delete the entry from the Section schema ??
-        // return res
-        return res.status(200).json({
+        const { subSectionId, sectionId } = req.body
+        await Section.findByIdAndUpdate(
+            { _id: sectionId },
+            {
+              $pull: {
+                subSection: subSectionId,
+              },
+            }
+        )
+        const subSection = await SubSection.findByIdAndDelete({ _id: subSectionId })
+      
+        if (!subSection) {
+            return res
+              .status(404)
+              .json({ success: false, message: "SubSection not found" })
+        }
+    
+        const updatedSection = await Section.findById(sectionId).populate("subSection")
+      
+        return res.json({
             success: true,
-            message: 'SubSection deleted succcesssfully.',
-            
-        });
+            data:updatedSection,
+            message: "SubSection deleted successfully",
+        })
 
     }catch(error){
+        console.error(error)
         return res.status(500).json({
-            success: false,
-            message: 'Unable to delete subSection, please try again.',
-            error: error.message
-        });
+          success: false,
+          message: "An error occurred while deleting the SubSection",
+        })
     }
 };
