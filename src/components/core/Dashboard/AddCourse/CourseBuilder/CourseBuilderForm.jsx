@@ -10,12 +10,17 @@ import { createSection, updateSection } from '../../../../../services/operations
 
 const CourseBuilderForm = () => {
 
-  const { register, handleSubmit, setValue, formState: {errors}, } = useForm();
-  const [editSectionName, setEditSectionName] = useState(null);
+  const { 
+    register, 
+    handleSubmit, 
+    setValue, 
+    formState: {errors}, 
+  } = useForm();
   const { course } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [editSectionName, setEditSectionName] = useState(null);
+  const dispatch = useDispatch();
 
   const onSubmit = async(data) => {
     setLoading(true);
@@ -27,12 +32,14 @@ const CourseBuilderForm = () => {
         sectionName: data.sectionName,
         sectionId: editSectionName,
         courseId: course._id,
-      }, token)
+        token
+      })
     } else {
       result = await createSection({
         sectionName: data.sectionName,
         courseId: course._id,
-      }, token)
+        token,
+      })
     }
 
     // Update Value
@@ -50,13 +57,17 @@ const CourseBuilderForm = () => {
     setValue("sectionName", "")
   }
 
-  const goBack = () => {
-    dispatch(setStep(1));
-    dispatch(setEditCourse(true));
+  const handleChangeEditSectionName = (sectionId, sectionName) => {
+    if(editSectionName === sectionId) {
+      cancelEdit();
+      return;
+    }
+    setEditSectionName(sectionId);
+    setValue("sectionName", sectionName);
   }
 
   const goToNext = () => {
-    if(course?.courseContent?.length === 0) {
+    if(course.courseContent.length === 0) {
       toast.error("Please add atleast One Section");
       return;
     }
@@ -64,28 +75,20 @@ const CourseBuilderForm = () => {
       toast.error("Please add atleast one lecture in each section.");
       return;
     }
-    // if everything is good
     dispatch(setStep(3));
   }
-
-  const handleChangeEditSectionName = (sectionId, sectionName) => {
-    if(editSectionName === sectionId) {
-      cancelEdit();
-      return;
-    }
-
-    setEditSectionName(sectionId);
-    setValue("sectionName", sectionName);
+  
+  const goBack = () => {
+    dispatch(setStep(1));
+    dispatch(setEditCourse(true));
   }
 
   return (
-    <div className='text-richblack-5 flex flex-col gap-4'>
-      <p>Course Builder</p>
-      <form onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col gap-4'
-      >
-        <div>
-          <label htmlFor='sectionName'>
+    <div className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6">
+      <p className="text-2xl font-semibold text-richblack-5">Course Builder</p>
+      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor='sectionName' className="text-sm text-richblack-5">
             Section Name <sup className='text-pink-200'>*</sup>
           </label>
           <input 
@@ -95,18 +98,20 @@ const CourseBuilderForm = () => {
             className='w-full form-style'
           />
           {errors.sectionName && (
-            <span>Section Name is required</span>
+            <span className="ml-2 text-xs tracking-wide text-pink-200">
+              Section Name is required
+            </span>
           )}
         </div>
 
-        <div className='flex gap-2'>
+        <div className='flex items-end gap-x-4'>
           <IconBtn
             type="submit"
+            disabled={loading}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
-            customClasses={"text-richblack-5"}
           >
-            <MdAddCircleOutline className='text-yellow-50' size={20}/>
+            <MdAddCircleOutline size={20} className='text-yellow-50' />
           </IconBtn>
           {editSectionName && (
             <button
@@ -120,15 +125,17 @@ const CourseBuilderForm = () => {
         </div>
       </form>
 
-      {course?.courseContent?.length > 0 && (
+      {course.courseContent.length > 0 && (
         <NestedView handleChangeEditSectionName={handleChangeEditSectionName}/>
       )}
-      <div className='flex justify-end gap-x-3 mt-10'>
+      <div className='flex justify-end gap-x-3'>
         <button
           onClick={goBack}
-          className='rounded-md cursor-pointer flex items-center'
-        >Back</button>
-        <IconBtn text="next" onClick={goToNext}>
+          className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}
+        >
+          Back
+        </button>
+        <IconBtn disabled={loading}  text="Next" onclick={goToNext}>
           <MdNavigateNext />
         </IconBtn>
       </div>
