@@ -30,7 +30,7 @@ export default function CourseTable({courses, setCourses}) {
         }
         setConfirmationModal(null)
         setLoading(false)
-      }
+    }
 
   return (
     <>
@@ -128,11 +128,11 @@ export default function CourseTable({courses, setCourses}) {
                                             btn1Text: !loading ? "Delete" : "Loading...  ",
                                             btn2Text: "Cancel",
                                             btn1Handler: !loading
-                                            ? () => handleCourseDelete(course._id)
-                                            : () => {},
+                                                ? () => handleCourseDelete(course._id)
+                                                : () => {},
                                             btn2Handler: !loading
-                                            ? () => setConfirmationModal(null)
-                                            : () => {},
+                                                ? () => setConfirmationModal(null)
+                                                : () => {},
                                         })
                                     }}
                                     title="Delete"

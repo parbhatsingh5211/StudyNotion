@@ -68,7 +68,7 @@ export default function CourseInformationForm() {
       currentValues.coursePrice !== course.price ||
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
-      currentValues.courseCategory._id !== course.category._id ||
+      currentValues.courseCategory !== course.category._id ||
       currentValues.courseRequirements.toString() !==
         course.instructions.toString() ||
       currentValues.courseImage !== course.thumbnail
@@ -83,9 +83,9 @@ export default function CourseInformationForm() {
     // console.log(data)
 
     if (editCourse) {
-      // const currentValues = getValues()
+      const currentValues = getValues()
       // console.log("changes after editing form values:", currentValues)
-      // console.log("now course:", course)
+      console.log("now course:", course)
       // console.log("Has Form Changed:", isFormUpdated())
       if (isFormUpdated()) {
         const currentValues = getValues()
@@ -107,7 +107,7 @@ export default function CourseInformationForm() {
         if (currentValues.courseBenefits !== course.whatYouWillLearn) {
           formData.append("whatYouWillLearn", data.courseBenefits)
         }
-        if (currentValues.courseCategory._id !== course.category._id) {
+        if (currentValues.courseCategory !== course.category) {
           formData.append("category", data.courseCategory)
         }
         if (
@@ -122,7 +122,7 @@ export default function CourseInformationForm() {
         if (currentValues.courseImage !== course.thumbnail) {
           formData.append("thumbnailImage", data.courseImage)
         }
-        // console.log("Edit Form data: ", formData)
+        console.log("Edit Form data: ", formData)
         setLoading(true)
         const result = await editCourseDetails(formData, token)
         setLoading(false)
@@ -305,6 +305,7 @@ export default function CourseInformationForm() {
         )}
         <IconBtn
           disabled={loading}
+          // onclick={() => dispatch(setStep(2))}
           text={!editCourse ? "Next" : "Save Changes"}
         >
           <MdNavigateNext />

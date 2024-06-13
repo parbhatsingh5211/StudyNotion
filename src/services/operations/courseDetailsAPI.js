@@ -326,10 +326,10 @@ export const deleteCourse = async (data, token) => {
 export const getFullDetailsOfCourse = async (courseId, token) => {
     const toastId = toast.loading("Loading...")
     let result = null;
-
+    // console.log("COURSEID", courseId)
     try {
         const response = await apiConnector(
-            "GET",
+            "POST",
             GET_FULL_COURSE_DETAILS_AUTHENTICATED,
             { courseId },
             { Authorization: `Bearer ${token}` }
@@ -342,7 +342,7 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
         result = response?.data?.data
     } catch (error) {
         console.log("COURSE_FULL_DETAILS_API API ERROR............", error)
-        result = error.response.data
+        // result = error.response.data
         // toast.error(error.response.data.message);
     }
     toast.dismiss(toastId)
