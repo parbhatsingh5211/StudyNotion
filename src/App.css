@@ -124,3 +124,14 @@ html, body {
 .form-style {
     @apply rounded-lg bg-richblack-700 p-3 text-[16px] leading-[24px] text-richblack-5 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-richblack-400 focus:outline-none;
 }
+
+.section_heading {
+  @apply text-[1.87rem] text-richblack-5
+}
+
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+  background-color: #cccccc;
+}
+
+
+
