@@ -1,4 +1,7 @@
 const Category = require('../models/Category');
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
+}
 
 // createCategory Handler function
 exports.createCategory = async (req,res) => {
@@ -34,12 +37,12 @@ exports.createCategory = async (req,res) => {
 exports.showAllCategories = async (req, res) => {
     try{
         const allcategory = await Category.find({});
-        // if(!allcategory){
-        //     res.status(200).json({
-        //         success: true,
-        //         message: 'Admin Not create a category'
-        //     });
-        // }
+        if(!allcategory){
+            res.status(200).json({
+                success: true,
+                message: 'Admin Not create a category'
+            });
+        }
         res.status(200).json({
             success: true,
             data: allcategory
@@ -54,8 +57,8 @@ exports.showAllCategories = async (req, res) => {
 
 exports.categoryPageDetails = async (req, res) => {
     try{
-        const {categoryId} = req.body;
-
+        const { categoryId } = req.body;
+        // console.log("PRINTING CATEGORY ID: ", categoryId);
         // Get courses for the specified category
         const selectedCategory = await Category.findById(categoryId)
             .populate({
@@ -64,7 +67,8 @@ exports.categoryPageDetails = async (req, res) => {
                 populate: "ratingAndReviews",
             })
             .exec();
-        // console.log(selectedCategory);
+
+        //console.log("SELECTED COURSE", selectedCategory)
         // Handle the case when the category is not found
         if (!selectedCategory) {
             console.log("Category not found.");
@@ -81,8 +85,6 @@ exports.categoryPageDetails = async (req, res) => {
             });
 	    }
 
-        const selectedCourses = selectedCategory.courses;
-
         // Get courses for other categories
 		const categoriesExceptSelected = await Category.find({
 			_id: { $ne: categoryId },
@@ -96,11 +98,6 @@ exports.categoryPageDetails = async (req, res) => {
                 match: { status: "Published" },
             })
             .exec();
-            
-		// let differentCourses = [];
-		// for (const category of categoriesExceptSelected) {
-		// 	differentCourses.push(...category.courses);
-		// }
 
         // Get top-selling courses across all categories
 		const allCategories = await Category.find()
