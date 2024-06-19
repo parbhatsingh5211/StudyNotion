@@ -16,14 +16,15 @@ const EnrolledCourses = () => {
             console.log("Unable to fetch Enrolled Courses.")
         }
     }
+    // console.log(enrolledCourses.length);
 
     useEffect( () => {
         getEnrolledCourses();
     }, []);
 
   return (
-    <div>
-        <div>Enrolled Courses</div>
+    <div className='text-richblack-5'>
+        <div className='text-3xl'>Enrolled Courses</div>
         {!enrolledCourses 
         ? (
             <div className='spinner'></div>
@@ -34,31 +35,35 @@ const EnrolledCourses = () => {
                     You have not enroll any course yet 
                 </p>
             ) : (
-                <div>
-                    <div>
+                <div className='rounded-lg bg-richblack-600 mt-10 border-2 border-richblack-800'>
+                    <div className='grid grid-cols-3 px-4 py-2 '>
                         <p>Course Name</p>
                         <p>Duration</p>
                         <p>Progress</p>
                     </div>
                     {/* Cards */}
                     {enrolledCourses.map( (course, index) => (
-                        <div key={index}>
-                            <div>
-                                <img src={course.thumbnail} alt="CourseImage"/>
-                                <div>
-                                    <p>{course.courseName}</p>
-                                    <p>{course.courseDescription}</p>
+                        <div key={index}
+                            className={`grid grid-cols-3 bg-richblack-900 py-2 px-4
+                            ${index < enrolledCourses.length-1 ? "border-b-2 border-richblack-800" : ""}`}
+                        >
+                            <div className='flex gap-1 lg:gap-4 flex-col lg:flex-row'>
+                                <img src={course.thumbnail} alt="CourseImage"  className='rounded-md lg:w-[100px] w-[50%]'/>
+                                <div className='flex flex-col gap-2'>
+                                    <p className='text-sm'>{course.courseName}</p>
+                                    <p className='text-[10px] text-richblack-300'>{course.courseDescription}</p>
                                 </div>
                             </div>
-                            <div>
+                            <div className='flex items-center text-sm'>
                                 {course?.totalDuration}
                             </div>
-                            <div>
-                                <p>Progress: {course.progresPercentage || 0}</p>
+                            <div className='flex flex-col justify-center gap-2'>
+                                <p className='text-sm'>Progress: {course.progresPercentage || 0} %</p>
                                 <ProgressBar 
                                     completed={course.progresPercentage || 0}
                                     height='8px'
                                     isLabelVisible={false}
+                                    width='60%'
                                 />
                             </div>
                         </div>
