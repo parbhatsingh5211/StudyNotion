@@ -16,7 +16,9 @@ const EnrolledCourses = () => {
             console.log("Unable to fetch Enrolled Courses.")
         }
     }
-    // console.log(enrolledCourses.length);
+    console.log(enrolledCourses);
+
+    const TRUNCATE_LENGTH = 10 ;
 
     useEffect( () => {
         getEnrolledCourses();
@@ -51,7 +53,15 @@ const EnrolledCourses = () => {
                                 <img src={course.thumbnail} alt="CourseImage"  className='rounded-md lg:w-[100px] w-[50%]'/>
                                 <div className='flex flex-col gap-2'>
                                     <p className='text-sm'>{course.courseName}</p>
-                                    <p className='text-[10px] text-richblack-300'>{course.courseDescription}</p>
+                                    <p className="text-xs text-richblack-300">
+                                        {course.courseDescription.split(" ").length >
+                                        TRUNCATE_LENGTH
+                                            ? course.courseDescription
+                                                .split(" ")
+                                                .slice(0, TRUNCATE_LENGTH)
+                                                .join(" ") + "..."
+                                            : course.courseDescription}
+                                    </p>
                                 </div>
                             </div>
                             <div className='flex items-center text-sm'>

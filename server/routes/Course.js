@@ -75,7 +75,7 @@ router.delete("/deleteSubSection", auth, isInstructor, deleteSubSection);
 // Get all Registered Courses
 router.get("/getAllCourses", getAllCourses);
 // Get Details for a Specific Courses
-router.get("/getCourseDetails", getCourseDetails);
+router.post("/getCourseDetails", getCourseDetails);
 // Get Details for a Specific Courses
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
 // Edit Course routes

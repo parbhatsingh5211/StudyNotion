@@ -234,7 +234,6 @@ exports.getAllCourses = async (req, res) => {
 exports.getCourseDetails = async (req, res) => {
     try{
         const { courseId } = req.body;
-        // console.log(courseId);
         const courseDetails = await Course.findOne({
             _id:courseId
         })

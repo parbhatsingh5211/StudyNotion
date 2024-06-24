@@ -59,7 +59,7 @@ const courseSchema = new mongoose.Schema({
     language: {
         type: String
     }
-});
+}, { timestamps: true });
 
 // Export the Courses model
 module.exports = mongoose.model("Course", courseSchema);

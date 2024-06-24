@@ -68,7 +68,7 @@ export default function CourseTable({courses, setCourses}) {
                                 <img 
                                     src={course?.thumbnail}
                                     alt={course?.courseName}
-                                    className="h-[148px] w-[220px] rounded-lg object-cover"
+                                    className="h-[148px] w-[220px] rounded-lg object-fill"
                                 />
                                 <div className="flex flex-col justify-between">
                                     <p className="text-lg font-semibold text-richblack-5">
@@ -84,7 +84,7 @@ export default function CourseTable({courses, setCourses}) {
                                             : course.courseDescription}
                                     </p>
                                     <p className="text-[12px] text-white">
-                                        Created: {formatDate(course.createdAt)}
+                                        Created At: {formatDate(course.createdAt)}
                                     </p>
                                     {course.status === COURSE_STATUS.DRAFT ? (
                                         <p className="flex w-fit flex-row items-center gap-2 rounded-full bg-richblack-700 px-2 py-[2px] text-[12px] font-medium text-pink-100">

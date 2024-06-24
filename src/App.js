@@ -25,6 +25,7 @@ import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catalog from "./pages/Catalog"
 import CourseDetails from "./pages/CourseDetails";
 import Courses from "./components/core/Dashboard/Courses";
+import AddCategory from "./components/core/Dashboard/AddCategory";
 
 function App() {
 
@@ -118,6 +119,11 @@ function App() {
               <Route path="dashboard/add-course" element={<AddCourse /> } />
               <Route path="dashboard/my-courses" element={<MyCourses /> } />
               <Route path="dashboard/edit-course/:courseId" element={<EditCourse /> } />
+            </>
+          )}
+          {user?.accountType === ACCOUNT_TYPE.ADMIN && (
+            <>
+            <Route path="dashboard/add-category" element={<AddCategory /> } />
             </>
           )}
         </Route>
