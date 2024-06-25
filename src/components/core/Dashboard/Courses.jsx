@@ -27,13 +27,11 @@ export default function Courses() {
         <div className="mb-14 flex items-center justify-between">
             <h1 className="text-3xl font-medium text-richblack-5">All Courses</h1>
         </div>
-        <div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-10 xl:gap-6 lg:grid-cols-3 px-14 xl:p-0'>
             {courses && courses.map((course, index) => (
-                <Course_Card course={course}  key={index}/>
+                <Course_Card course={course}  key={index} Height={"400px"}/>
             ))}
-        </div>
-
-        
+        </div>     
     </div>
   )
 }

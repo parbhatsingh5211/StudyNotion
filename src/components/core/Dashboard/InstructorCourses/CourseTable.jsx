@@ -19,7 +19,7 @@ export default function CourseTable({courses, setCourses}) {
     const { token } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false);
     const [confirmationModal, setConfirmationModal] = useState(null);
-    const TRUNCATE_LENGTH = 30
+    const TRUNCATE_LENGTH = 15
 
     const handleCourseDelete = async (courseId) => {
         setLoading(true)
@@ -31,6 +31,7 @@ export default function CourseTable({courses, setCourses}) {
         setConfirmationModal(null)
         setLoading(false)
     }
+    console.log(courses)
 
   return (
     <>

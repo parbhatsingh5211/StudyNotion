@@ -12,17 +12,17 @@ const Course_Card = ({course, Height}) => {
     }, [course])
 
   return (
-    <div>
+    <div className= 'hover:shadow-[0_5px_10px_rgba(8,_112,_184,_0.3)] hover:scale-105 transition-all delay-300 rounded-xl'>
         <Link to={`/courses/${course._id}`}>
             <div>
                 <div className="rounded-lg">
                     <img 
                         src={course?.thumbnail}
                         alt='courseThumbnail'
-                        className={`${Height} w-full rounded-xl object-cover`}
+                        className={`w-full aspect-5/3 object-fill rounded-xl`}
                     />
                 </div>
-                <div className="flex flex-col gap-2 px-1 py-3">
+                <div className="flex flex-col gap-2 px-2 py-3">
                     <p className="text-xl text-richblack-5">{course?.courseName}</p>
                     <p className="text-sm text-richblack-50">
                         {course?.instructor?.firstName} {course?.instructor?.lastName}

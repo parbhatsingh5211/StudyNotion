@@ -8,6 +8,7 @@ import Error from './Error';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import RatingStars from '../components/common/RatingStars'
 import { formatDate } from '../services/formatDate'
+import CourseDetailsCard from '../components/core/Course/CourseDetailsCard';
 
 const CourseDetails = () => {
   const {user} = useSelector((state) => state.profile);
@@ -22,6 +23,7 @@ const CourseDetails = () => {
   const [avgReviewCount, setAvgReviewCount] = useState(0);
   const [totalNoOfLectures, setTotalNoOfLectures] = useState(0);
   const [confirmationModal, setConfirmationModal] = useState(null);
+  const [isActive, setIsActive] = useState(Array(0));
 
   useEffect(() => {
     const getCourseFullDetails = async() => {
@@ -48,6 +50,14 @@ const CourseDetails = () => {
     })
     setTotalNoOfLectures(lectures);
   }, [courseData])
+
+  const handleActive = (id) => {
+    setIsActive(
+        !isActive.includes(id)
+         ? isActive.concat(id)
+         : isActive.filter((e)=> e != id)
+    )
+  }
 
 // To update
   const handleBuyCourse = () => {
@@ -94,35 +104,75 @@ const CourseDetails = () => {
   } = courseData?.data?.courseDetails
 
   return (
-    <div className='flex flex-col items-center text-richblack-5'>
-      <div className='relative'>
-        <p>{courseName}</p>
-        <p>{courseDescription}</p>
-        
-        <div className='flex gap-x-2'>
-          <span>{avgReviewCount}</span>
-          <RatingStars Review_Count={avgReviewCount} Star_Size={24}/>
-          <span>{ratingAndReviews.length} reviews </span>
-          <span>{studentsEnrolled.length} stdents Enrolled</span>
-        </div>
-        
-        <div>
-          <p>
-            Created BY {instructor.firstName} {instructor.lastName}
-          </p>
+    <div className='flex flex-col  text-white'>
+
+        <div className='relative flex flex-col justify-start p-8'>
+            <p>{courseName}</p>
+            <p>{courseDescription}</p>
+            <div className='flex gap-x-2'>
+                <span>{avgReviewCount}</span>
+                <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
+                <span>{`(${ratingAndReviews.length} reviews) `}</span>
+                <span>{`(${studentsEnrolled.length} students enrolled)`}</span>
+            </div>
+
+            <div>
+                <p>Created By {`${instructor.firstName}`}</p>
+            </div>
+
+            <div className='flex gap-x-3'>
+                <p>
+                    Created At {formatDate(createdAt)}
+                </p>
+                <p>
+                    {" "} English
+                </p>
+            </div>
+
+            <div>
+                <CourseDetailsCard 
+                    course = {courseData?.data?.courseDetails}
+                    setConfirmationModal = {setConfirmationModal}
+                    handleBuyCourse = {handleBuyCourse}
+                />
+            </div>
         </div>
 
         <div>
-          <p>
-            Created At {formatDate(createdAt)}
-          </p>
+            <p> What You WIll learn</p>
+            <div>
+                {whatYouWillLearn}
+            </div>
         </div>
-      </div>
-      <button onClick={handleBuyCourse}>
-        Buy Course
-      </button>
 
-      {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
+        <div>
+            <div>
+                <p>Course Content:</p>
+            </div>
+
+            <div className='flex gap-x-3 justify-between'>
+                <div className='flex gap-x-3'>
+                     <span>
+                          {courseContent.length} section(s)
+                      </span>
+                     <span>
+                          {totalNoOfLectures} lectures
+                     </span>
+                     <span>
+                          {courseData.data?.totalDuration} total length
+                     </span>
+                </div>
+
+                <div>
+                    <button
+                        onClick={() => setIsActive([])}>
+                        Collapse all Sections
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {confirmationModal && <ConfirmationModal modalData={confirmationModal}/>}
     </div>
   )
 }

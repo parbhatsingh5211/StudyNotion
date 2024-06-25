@@ -129,6 +129,9 @@ module.exports = {
         maxContent: "1260px",
         maxContentTab: "650px"
       },
+      aspectRatio: {
+        '5/3': '5 / 3',
+      },
     },
   },
   plugins: [],
