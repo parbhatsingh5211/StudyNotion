@@ -33,6 +33,9 @@ export default function MyCourses() {
                 <BiPlus />
             </IconBtn>
         </div>
+        <div className="text-lg text-richblack-200 px-5 py-3 rounded-lg inline font-semibold">
+            Total Courses: <span className='w-[15px] h-[15px] bg-richblack-800 rounded-full px-3 py-2 ml-3 font-medium text-richblack-100'>{courses.length}</span>
+        </div>
         {courses && <CourseTable courses={courses} setCourses={setCourses} />}
     </div>
   )

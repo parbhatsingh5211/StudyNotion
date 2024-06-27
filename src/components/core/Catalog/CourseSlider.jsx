@@ -28,8 +28,8 @@ const CourseSlider = ({Courses}) => {
           className='mySwiper'
         >
           {Courses?.map((course, index) => (
-            <SwiperSlide key={index}>
-              <Course_Card course={course}  />
+            <SwiperSlide key={index} className='p-8'>
+              <Course_Card course={course} />
             </SwiperSlide>
           ))}
         </Swiper>

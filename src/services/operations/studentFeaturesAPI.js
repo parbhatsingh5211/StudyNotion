@@ -74,7 +74,7 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatach
         })
     } catch (error) {
         console.log("PAYMENT API ERROR.........", error)
-        toast.error(error.message)
+        toast.error(error.response.data.message)
     }
     toast.dismiss(toastId);
 }
@@ -111,7 +111,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
         dispatch(resetCart());
     } catch (error) {
         console.log("PAYMENT VERIFY ERROR......", error);
-        toast.error(error.message);
+        toast.error(error.response.data.message);
     }
     toast.dismiss(toastId);
     dispatch(setPaymentLoading(false));

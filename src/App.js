@@ -26,6 +26,9 @@ import Catalog from "./pages/Catalog"
 import CourseDetails from "./pages/CourseDetails";
 import Courses from "./components/core/Dashboard/Courses";
 import AddCategory from "./components/core/Dashboard/AddCategory";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails"
+import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 
 function App() {
 
@@ -87,15 +90,7 @@ function App() {
           } 
         />
 
-        <Route 
-          path="about" 
-          element={
-            <OpenRoute>
-              <About />
-            </OpenRoute>
-          } 
-        />
-
+        <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact /> } />
 
         <Route
@@ -107,6 +102,7 @@ function App() {
         >
           <Route path="dashboard/my-profile" element={<MyProfile /> } />
           <Route path="dashboard/settings" element={<Settings /> } />
+
           {user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
                 <Route path="dashboard/wishlist" element={<Cart /> } />
@@ -114,8 +110,10 @@ function App() {
                 <Route path="dashboard/courses" element={<Courses /> } />
               </>
           )}
+
           {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
+              <Route path="dashboard/instructor" element={<Instructor />} />
               <Route path="dashboard/add-course" element={<AddCourse /> } />
               <Route path="dashboard/my-courses" element={<MyCourses /> } />
               <Route path="dashboard/edit-course/:courseId" element={<EditCourse /> } />
@@ -124,6 +122,21 @@ function App() {
           {user?.accountType === ACCOUNT_TYPE.ADMIN && (
             <>
             <Route path="dashboard/add-category" element={<AddCategory /> } />
+            </>
+          )}
+        </Route>
+
+        <Route element={
+          <PrivateRoute>
+            <ViewCourse />
+          </PrivateRoute>
+        }>
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route 
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
+              />
             </>
           )}
         </Route>
