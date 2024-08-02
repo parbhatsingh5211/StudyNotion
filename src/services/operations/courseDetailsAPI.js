@@ -20,6 +20,7 @@ const {
     GET_FULL_COURSE_DETAILS_AUTHENTICATED,
     CREATE_RATING_API,
     LECTURE_COMPLETION_API,
+    GET_LECTURE_COMPLETION_API,
 } = courseEndpoints
 
 export const getAllCourses = async () => {
@@ -364,7 +365,7 @@ export const markLectureAsComplete = async (data, token) => {
           "MARK_LECTURE_AS_COMPLETE_API RESPONSE............",
           response
         )
-    
+ 
         if (!response.data.message) {
           throw new Error(response.data.error)
         }
@@ -401,4 +402,23 @@ export const createRating = async (data, token) => {
     }
     toast.dismiss(toastId)
     return success
+}
+
+export const getCompletedLectures = async () => {
+    const toastId = toast.loading("Loading...")
+    let result = []
+
+    try {
+        const response = await apiConnector("GET", GET_LECTURE_COMPLETION_API)
+        if (!response?.data?.success) {
+            throw Error("Could Not Fetch Course Categories")
+        }
+        result = response?.data?.data;
+        console.log("Completed Lectures",result);
+    } catch (error) {
+        console.log("GET_ALL_COURSE_API ERROR............", error)
+        toast.error(error.response.data.message)
+    }
+    toast.dismiss(toastId);
+    return result;
 }

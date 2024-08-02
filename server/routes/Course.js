@@ -45,7 +45,8 @@ const {
 } = require("../controllers/RatingAndReview")
 
 const {
-    updateCourseProgress
+    updateCourseProgress,
+    getProgressPercentage
   } = require("../controllers/courseProgress");
 
 // import Middlewares
@@ -89,6 +90,7 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.delete("/deleteCourse", deleteCourse)
 
 router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
+router.get("/getProgressPercentage", auth, isStudent, getProgressPercentage);
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

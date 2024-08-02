@@ -148,7 +148,7 @@ exports.updateDisplayPicture = async (req, res) => {
 exports.getEnrolledCourses = async (req, res) => {
     try{
         const userId = req.user.id
-        const userDetails = await User.findOne({
+        let userDetails = await User.findOne({
           _id: userId,
         })
             .populate({
@@ -162,7 +162,7 @@ exports.getEnrolledCourses = async (req, res) => {
             })
             .exec();
             
-        // userDetails = userDetails.toObject()
+        userDetails = userDetails.toObject()
         var SubsectionLength = 0
         for (var i = 0; i < userDetails.courses.length; i++) {
             let totalDurationInSeconds = 0
@@ -179,7 +179,7 @@ exports.getEnrolledCourses = async (req, res) => {
             }
 
             let courseProgressCount = await CourseProgress.findOne({
-              courseID: userDetails.courses[i]._id,
+              courseId: userDetails.courses[i]._id,
               userId: userId,
             })
             courseProgressCount = courseProgressCount?.completedVideos.length
@@ -194,7 +194,7 @@ exports.getEnrolledCourses = async (req, res) => {
                 ) / multiplier
             }
         }
-
+        
         if(!userDetails) {
             return res.status(400).json({
                 success: false,
@@ -213,3 +213,31 @@ exports.getEnrolledCourses = async (req, res) => {
         })
     }
 }
+
+exports.instructorDashboard = async (req, res) => {
+    try {
+      const courseDetails = await Course.find({ instructor: req.user.id })
+  
+      const courseData = courseDetails.map((course) => {
+        const totalStudentsEnrolled = course.studentsEnrolled.length
+        const totalAmountGenerated = totalStudentsEnrolled * course.price
+  
+        // Create a new object with the additional fields
+        const courseDataWithStats = {
+          _id: course._id,
+          courseName: course.courseName,
+          courseDescription: course.courseDescription,
+          // Include other course properties as needed
+          totalStudentsEnrolled,
+          totalAmountGenerated,
+        }
+  
+        return courseDataWithStats
+      })
+  
+      res.status(200).json({ courses: courseData })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: "Server Error" })
+    }
+  }

@@ -10,7 +10,7 @@ import { apiConnector } from "../../services/apiconnector"
 import { categories } from "../../services/apis"
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropDown"
-
+import NavbarDropDown from "./NavbarDropDown"
 function Navbar() {
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.profile)
@@ -19,6 +19,7 @@ function Navbar() {
 
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -37,6 +38,10 @@ function Navbar() {
 
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname)
+  }
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   }
 
   return (
@@ -140,9 +145,12 @@ function Navbar() {
           )}
           {token !== null && <ProfileDropdown />}
         </div>
-        <button className="mr-4 md:hidden">
+        <button className="mr-4 md:hidden relative"
+          onClick={toggleDropdown}
+        >
           <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
         </button>
+        {/* {isOpen && (<NavbarDropDown />)} */}
       </div>
     </div>
   )

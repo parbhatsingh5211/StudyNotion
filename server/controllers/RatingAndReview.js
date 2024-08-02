@@ -117,7 +117,7 @@ exports.getAllRatingReview = async (req, res) => {
             })
             .exec();
         
-        return res.status(500).json({
+        return res.status(200).json({
             success: true,
             message: `All Reviews Fetched Successfully`,
             data: allReviews,

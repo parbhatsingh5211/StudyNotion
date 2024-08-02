@@ -1,4 +1,3 @@
-/* write your css here */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -233,5 +232,7 @@ details > summary::-webkit-details-marker {
   background-color: #cccccc;
 }
 
-
+/* .slider {
+  border: linear-gradient(to right bottom, #ffffff38, #ffffff00);
+} */
 

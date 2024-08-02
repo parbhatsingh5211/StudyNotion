@@ -9,8 +9,8 @@ import viewCourseReducer from "../slices/viewCourseSlice"
 const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
-    cart: cartReducer,
     course: courseReducer,
+    cart: cartReducer,
     viewCourse: viewCourseReducer,
 })
 

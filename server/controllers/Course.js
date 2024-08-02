@@ -204,7 +204,7 @@ exports.editCourse = async (req, res) => {
 exports.getAllCourses = async (req, res) => {
     try{
         const allCourses = await Course.find(
-            { status: "Published" },
+          { status: "Published" },
 			{
 				courseName: true,
 				price: true,
@@ -290,7 +290,7 @@ exports.getCourseDetails = async (req, res) => {
 exports.getFullCourseDetails = async (req, res) => {
   try {
       const { courseId } = req.body;
-      console.log("COURSEID",courseId)
+      // console.log("COURSEID",courseId)
       const userId = req.user.id
       const courseDetails = await Course.findOne({
         _id: courseId,
@@ -312,10 +312,9 @@ exports.getFullCourseDetails = async (req, res) => {
         .exec()
   
       let courseProgressCount = await CourseProgress.findOne({
-        courseID: courseId,
+        courseId: courseId,
         userId: userId,
       })
-  
       console.log("courseProgressCount : ", courseProgressCount)
   
       if (!courseDetails) {

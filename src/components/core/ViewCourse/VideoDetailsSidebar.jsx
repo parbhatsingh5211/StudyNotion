@@ -21,17 +21,16 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
 
   useEffect(() => {
     ;(() => {
-      if (!courseSectionData.length) return
+      if (!courseSectionData.length) 
+        return;
       const currentSectionIndx = courseSectionData.findIndex(
         (data) => data._id === sectionId
       )
-      const currentSubSectionIndx = courseSectionData?.[
-        currentSectionIndx
-      ]?.subSection.findIndex((data) => data._id === subSectionId)
+      const currentSubSectionIndx = courseSectionData?.[currentSectionIndx]?.subSection.findIndex(
+        (data) => data._id === subSectionId
+      )
       const activeSubSectionId =
-        courseSectionData[currentSectionIndx]?.subSection?.[
-          currentSubSectionIndx
-        ]?._id
+        courseSectionData[currentSectionIndx]?.subSection?.[currentSubSectionIndx]?._id
       setActiveStatus(courseSectionData?.[currentSectionIndx]?._id)
       setVideoBarActive(activeSubSectionId)
     })()
@@ -99,7 +98,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                 <div className="transition-[height] duration-500 ease-in-out">
                   {course.subSection.map((topic, i) => (
                     <div
-                      className={`flex gap-3  px-5 py-2 ${
+                      className={`flex gap-3 px-5 py-2 ${
                         videoBarActive === topic._id
                           ? "bg-yellow-200 font-semibold text-richblack-800"
                           : "hover:bg-richblack-900"
@@ -109,7 +108,7 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                         navigate(
                           `/view-course/${courseEntireData?._id}/section/${course?._id}/sub-section/${topic?._id}`
                         )
-                        setVideoBarActive(topic._id)
+                        setVideoBarActive(topic?._id)
                       }}
                     >
                       <input
