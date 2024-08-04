@@ -1,11 +1,11 @@
 const { contactUsEmail } = require("../mail/templates/contactFormRes")
-const mailSender = require("../utils/mailSender")
+const contactMail= require("../utils/contactMail")
 
 exports.contactUsController = async (req, res) => {
     const { email, firstname, lastname, message, phoneNo, countrycode } = req.body
     console.log(req.body)
     try{
-        const emailRes =await mailSender(
+        const emailRes =await contactMail(
             email,
             "Your Data Send Successfully.",
             contactUsEmail(email, firstname, lastname, message, phoneNo, countrycode)
