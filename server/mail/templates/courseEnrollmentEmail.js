@@ -70,7 +70,7 @@ exports.courseEnrollmentEmail = (courseName, name) => {
     
     <body>
         <div class="container">
-            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
+            <a href="https://study-notion1-dun.vercel.app/"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
                     alt="StudyNotion Logo"></a>
             <div class="message">Course Registration Confirmation</div>
             <div class="body">
@@ -79,10 +79,10 @@ exports.courseEnrollmentEmail = (courseName, name) => {
                     are excited to have you as a participant!</p>
                 <p>Please log in to your learning dashboard to access the course materials and start your learning journey.
                 </p>
-                <a class="cta" href="https://studynotion-edtech-project.vercel.app/dashboard">Go to Dashboard</a>
+                <a class="cta" href="https://study-notion1-dun.vercel.app//dashboard">Go to Dashboard</a>
             </div>
             <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
-                    href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!</div>
+                    href="mailto:parbhatsingh.sr@gmail.com">info@studynotion.com</a>. We are here to help!</div>
         </div>
     </body>
     
